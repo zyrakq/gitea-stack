@@ -1,0 +1,8 @@
+services:
+  gitea:
+    networks:
+      - gitea-workspace-network
+
+networks:
+  gitea-workspace-network:
+    external: true
