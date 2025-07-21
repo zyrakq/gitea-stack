@@ -19,6 +19,8 @@ services:
       GITEA__admin__USERNAME: ${GITEA__admin__USERNAME}
       GITEA__admin__PASSWORD: ${GITEA__admin__PASSWORD}
       GITEA__admin__EMAIL: ${GITEA__admin__EMAIL}
+      GITEA__oauth2__ENABLE: ${GITEA__oauth2__ENABLE}
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: ${ALLOW_ONLY_EXTERNAL_REGISTRATION}
     networks:
       - gitea-workspace-network
 volumes:

@@ -115,6 +115,13 @@ Each environment provides a base configuration:
 - `GITEA__admin__PASSWORD`: Admin password
 - `GITEA__admin__EMAIL`: Admin email
 
+### OIDC Configuration
+
+- `GITEA__oauth2__ENABLE`: Enable OAuth2 authentication (default: true)
+- `ALLOW_ONLY_EXTERNAL_REGISTRATION`: Allow only external registration (default: false)
+
+**Note**: OIDC providers (like Keycloak) must be configured manually through the Gitea web interface at **Site Administration → Authentication Sources**. The environment variables above only enable the OAuth2 functionality.
+
 ### Let's Encrypt Configuration
 
 - `VIRTUAL_PORT`: Port for nginx-proxy (default: 3000)
@@ -209,8 +216,31 @@ cp .env.example .env
 docker-compose up -d
 ```
 
+## 🔐 OIDC Integration
+
+### Keycloak Integration
+
+To integrate Gitea with Keycloak for single sign-on:
+
+1. **Enable OIDC in Gitea**: Set `GITEA__oauth2__ENABLE=true` in your `.env` file
+2. **Configure Keycloak Client**: Create a new client in Keycloak with:
+   - Client ID: `gitea`
+   - Client Protocol: `openid-connect`
+   - Access Type: `confidential`
+   - Valid Redirect URIs: `https://your-gitea-domain/user/oauth2/keycloak/callback`
+3. **Configure in Gitea Web Interface**:
+   - Go to **Site Administration → Authentication Sources**
+   - Add new **OAuth2** authentication source
+   - Provider: **OpenID Connect**
+   - Client ID: Your Keycloak client ID
+   - Client Secret: Your Keycloak client secret
+   - OpenID Connect Auto Discovery URL: `https://your-keycloak-domain/realms/your-realm/.well-known/openid_configuration`
+
+**Note**: OIDC configuration must be completed through the Gitea web interface after deployment. Environment variables only enable the OAuth2 functionality.
+
 ## 📚 Additional Resources
 
 - [Gitea Documentation](https://docs.gitea.io/)
 - [Gitea Configuration Cheat Sheet](https://docs.gitea.io/en-us/config-cheat-sheet/)
 - [Gitea Docker Installation](https://docs.gitea.io/en-us/install-with-docker/)
+- [Gitea OAuth2 Configuration](https://docs.gitea.io/en-us/usage/authentication/#oauth2)
