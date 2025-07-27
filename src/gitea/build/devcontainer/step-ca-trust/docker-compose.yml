@@ -18,16 +18,12 @@ services:
       GITEA__security__INSTALL_LOCK: ${GITEA__security__INSTALL_LOCK}
       GITEA__oauth2__ENABLE: ${GITEA__oauth2__ENABLE}
       ALLOW_ONLY_EXTERNAL_REGISTRATION: ${ALLOW_ONLY_EXTERNAL_REGISTRATION}
-      VIRTUAL_PORT: ${VIRTUAL_PORT:-3000}
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
-      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      ROOT_URL: ${ROOT_URL}
+      STEP_CA_TRUST: ${STEP_CA_TRUST:-true}
     networks:
-      - letsencrypt-network
+      - gitea-workspace-network
 volumes:
   gitea-data:
     name: gitea-data
 networks:
-  letsencrypt-network:
+  gitea-workspace-network:
     external: true

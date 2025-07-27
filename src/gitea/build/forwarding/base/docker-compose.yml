@@ -17,9 +17,6 @@ services:
       GITEA__service__DISABLE_REGISTRATION: ${GITEA__service__DISABLE_REGISTRATION}
       GITEA__service__REQUIRE_SIGNIN_VIEW: ${GITEA__service__REQUIRE_SIGNIN_VIEW}
       GITEA__security__INSTALL_LOCK: ${GITEA__security__INSTALL_LOCK}
-      GITEA__admin__USERNAME: ${GITEA__admin__USERNAME}
-      GITEA__admin__PASSWORD: ${GITEA__admin__PASSWORD}
-      GITEA__admin__EMAIL: ${GITEA__admin__EMAIL}
       GITEA__oauth2__ENABLE: ${GITEA__oauth2__ENABLE}
       ALLOW_ONLY_EXTERNAL_REGISTRATION: ${ALLOW_ONLY_EXTERNAL_REGISTRATION}
 volumes:

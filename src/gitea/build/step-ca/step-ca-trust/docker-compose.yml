@@ -23,11 +23,12 @@ services:
       LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
       ROOT_URL: ${ROOT_URL}
+      STEP_CA_TRUST: ${STEP_CA_TRUST:-true}
     networks:
-      - letsencrypt-network
+      - step-ca-network
 volumes:
   gitea-data:
     name: gitea-data
 networks:
-  letsencrypt-network:
+  step-ca-network:
     external: true

@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - 2222:22
+      - 3000:3000
     volumes:
       - gitea-data:/data
       - /etc/timezone:/etc/timezone:ro
@@ -18,16 +19,7 @@ services:
       GITEA__security__INSTALL_LOCK: ${GITEA__security__INSTALL_LOCK}
       GITEA__oauth2__ENABLE: ${GITEA__oauth2__ENABLE}
       ALLOW_ONLY_EXTERNAL_REGISTRATION: ${ALLOW_ONLY_EXTERNAL_REGISTRATION}
-      VIRTUAL_PORT: ${VIRTUAL_PORT:-3000}
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
-      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      ROOT_URL: ${ROOT_URL}
-    networks:
-      - letsencrypt-network
+      STEP_CA_TRUST: ${STEP_CA_TRUST:-true}
 volumes:
   gitea-data:
     name: gitea-data
-networks:
-  letsencrypt-network:
-    external: true

@@ -10,26 +10,34 @@ src/gitea/
 │   ├── base/                               # Base components
 │   │   ├── docker-compose.yml              # Main Gitea service
 │   │   └── .env.example                    # Base environment variables
-│   └── environments/                       # Environment components
-│       ├── devcontainer/
-│       │   └── docker-compose.yml          # DevContainer environment
-│       ├── forwarding/
-│       │   └── docker-compose.yml          # Development with port forwarding
-│       ├── letsencrypt/
-│       │   ├── docker-compose.yml          # Let's Encrypt SSL
-│       │   └── .env.example                # Let's Encrypt variables
-│       └── step-ca/
-│           ├── docker-compose.yml          # Step CA SSL
-│           └── .env.example                # Step CA variables
+│   ├── environments/                       # Environment components
+│   │   ├── devcontainer/
+│   │   │   └── docker-compose.yml          # DevContainer environment
+│   │   ├── forwarding/
+│   │   │   └── docker-compose.yml          # Development with port forwarding
+│   │   ├── letsencrypt/
+│   │   │   ├── docker-compose.yml          # Let's Encrypt SSL
+│   │   │   └── .env.example                # Let's Encrypt variables
+│   │   └── step-ca/
+│   │       ├── docker-compose.yml          # Step CA SSL
+│   │       └── .env.example                # Step CA variables
+│   └── extensions/                         # Extension components
+│       └── step-ca-trust/
+│           ├── docker-compose.yml          # Step CA trust configuration
+│           └── .env.example                # Step CA trust variables
 ├── build/                        # Generated configurations (auto-generated)
 │   ├── devcontainer/
-│   │   └── base/                 # DevContainer + base
+│   │   ├── base/                 # DevContainer + base
+│   │   └── step-ca-trust/        # DevContainer + base + step-ca-trust
 │   ├── forwarding/
-│   │   └── base/                 # Development + base
+│   │   ├── base/                 # Development + base
+│   │   └── step-ca-trust/        # Development + base + step-ca-trust
 │   ├── letsencrypt/
-│   │   └── base/                 # Let's Encrypt + base
+│   │   ├── base/                 # Let's Encrypt + base
+│   │   └── step-ca-trust/        # Let's Encrypt + base + step-ca-trust
 │   └── step-ca/
-│       └── base/                 # Step CA + base
+│       ├── base/                 # Step CA + base
+│       └── step-ca-trust/        # Step CA + base + step-ca-trust
 ├── build.sh                      # Build script
 └── README.md                     # This file
 ```
@@ -101,6 +109,8 @@ Each environment provides a base configuration:
 - `letsencrypt/base` - Production with Let's Encrypt SSL
 - `step-ca/base` - Production with Step CA SSL
 
+**Extensions available:** step-ca-trust (for OIDC certificate trust)
+
 ## 🔧 Environment Variables
 
 ### Base Configuration
@@ -111,9 +121,17 @@ Each environment provides a base configuration:
 - `GITEA__service__DISABLE_REGISTRATION`: Disable user registration (default: true)
 - `GITEA__service__REQUIRE_SIGNIN_VIEW`: Require sign-in to view (default: true)
 - `GITEA__security__INSTALL_LOCK`: Lock installation (default: true)
-- `GITEA__admin__USERNAME`: Admin username (default: admin)
-- `GITEA__admin__PASSWORD`: Admin password
-- `GITEA__admin__EMAIL`: Admin email
+
+### First Run Configuration
+
+⚠️ **Important for first deployment:**
+
+To set up the initial administrator account, you have two options:
+
+1. **Registration method**: Set `GITEA__service__DISABLE_REGISTRATION=false` to allow the first registered user to become a superadmin
+2. **Installation method**: Set `GITEA__security__INSTALL_LOCK=false` to configure the admin account and other settings through the web installation interface
+
+After initial setup, it's recommended to set both variables back to `true` for security.
 
 ### OIDC Configuration
 
@@ -135,6 +153,7 @@ Each environment provides a base configuration:
 - `VIRTUAL_HOST`: Domain for nginx-proxy
 - `LETSENCRYPT_HOST`: Domain for SSL certificate
 - `LETSENCRYPT_EMAIL`: Email for certificate registration
+- `STEP_CA_TRUST`: Enable trust for Step CA certificates (default: true, for OIDC integration)
 
 ## 🛠️ Development
 
@@ -236,7 +255,7 @@ To integrate Gitea with Keycloak for single sign-on:
    - Client Secret: Your Keycloak client secret
    - OpenID Connect Auto Discovery URL: `https://your-keycloak-domain/realms/your-realm/.well-known/openid_configuration`
 
-**Note**: OIDC configuration must be completed through the Gitea web interface after deployment. Environment variables only enable the OAuth2 functionality.
+**Note**: OIDC configuration must be completed through the Gitea web interface after deployment. Environment variables only enable the OAuth2 functionality. For Step CA certificate trust, use the step-ca-trust extension.
 
 ## 📚 Additional Resources
 
