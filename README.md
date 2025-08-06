@@ -25,6 +25,11 @@ Enterprise-grade identity and access management solution. Provides authenticatio
 
 For Gitea integration, see: [Keycloak Integration](https://docs.gitea.io/en-us/usage/authentication/)
 
+#### [🔐 Kanidm](src/identity-management/kanidm)
+
+Modern identity and access management server with comprehensive authentication capabilities. Provides secure identity management with modular configuration system and multiple deployment modes.
+[Learn more about Kanidm configuration](src/identity-management/kanidm/README.md).
+
 ## 🌐 Services
 
 ### [🍵 Gitea](src/gitea)

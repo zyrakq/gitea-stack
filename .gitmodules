@@ -7,3 +7,6 @@
 [submodule "src/ssl-automation/letsencrypt-manager"]
 	path = src/ssl-automation/letsencrypt-manager
 	url = https://github.com/zyrakq/letsencrypt-manager-stack.git
+[submodule "src/identity-management/kanidm"]
+	path = src/identity-management/kanidm
+	url = https://github.com/zyrakq/kanidm-stack.git
