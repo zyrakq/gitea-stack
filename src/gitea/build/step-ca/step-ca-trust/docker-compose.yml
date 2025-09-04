@@ -1,14 +1,13 @@
 services:
   gitea:
-    image: gitea/gitea:latest
     container_name: gitea
+    image: gitea/gitea:latest
     restart: unless-stopped
-    ports:
-      - 2222:22
-    volumes:
-      - gitea-data:/data
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: 3
     environment:
       USER_UID: ${USER_UID:-1000}
       USER_GID: ${USER_GID:-1000}
@@ -25,6 +24,12 @@ services:
       ROOT_URL: ${ROOT_URL}
       STEP_CA_TRUST: ${STEP_CA_TRUST:-true}
       STEP_CA_TRUST_RESTART: ${STEP_CA_TRUST_RESTART:-true}
+    ports:
+      - 2222:22
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - step-ca-network
 volumes:
