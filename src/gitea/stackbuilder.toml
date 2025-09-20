@@ -1,0 +1,26 @@
+[paths]
+environments_path = "./environments"
+extensions_dirs = ["extensions"]
+
+[build]
+skip_base_generation = true
+extensions = ["blank", "step-ca-trust"]
+
+[build.combos]
+base = ["blank"]
+
+[build.environments]
+available = ["devcontainer", "forwarding", "letsencrypt", "step-ca"]
+
+[build.environments.devcontainer]
+combos = ["base"]
+
+[build.environments.forwarding]
+combos = ["base"]
+
+[build.environments.letsencrypt]
+combos = ["base"]
+
+[build.environments.step-ca]
+skip_base_generation = false
+extensions = ["step-ca-trust"]
