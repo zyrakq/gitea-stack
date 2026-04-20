@@ -1,0 +1,44 @@
+services:
+  gitea:
+    container_name: gitea
+    image: gitea/gitea:latest
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: 3
+    environment:
+      USER_UID: ${USER_UID:-1000}
+      USER_GID: ${USER_GID:-1000}
+      GITEA__database__DB_TYPE: ${GITEA__database__DB_TYPE}
+      GITEA__service__DISABLE_REGISTRATION: ${GITEA__service__DISABLE_REGISTRATION}
+      GITEA__service__REQUIRE_SIGNIN_VIEW: ${GITEA__service__REQUIRE_SIGNIN_VIEW}
+      GITEA__security__INSTALL_LOCK: ${GITEA__security__INSTALL_LOCK}
+      GITEA__oauth2__ENABLED: ${GITEA__oauth2__ENABLED}
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: ${ALLOW_ONLY_EXTERNAL_REGISTRATION}
+      GITEA__storage__STORAGE_TYPE: ${GITEA__storage__STORAGE_TYPE:-minio}
+      GITEA__storage__MINIO_ENDPOINT: ${GITEA__storage__MINIO_ENDPOINT:-minio:9000}
+      GITEA__storage__MINIO_ACCESS_KEY_ID: ${GITEA__storage__MINIO_ACCESS_KEY_ID}
+      GITEA__storage__MINIO_SECRET_ACCESS_KEY: ${GITEA__storage__MINIO_SECRET_ACCESS_KEY}
+      GITEA__storage__MINIO_IAM_ENDPOINT: ${GITEA__storage__MINIO_IAM_ENDPOINT:-}
+      GITEA__storage__MINIO_BUCKET: ${GITEA__storage__MINIO_BUCKET:-gitea}
+      GITEA__storage__MINIO_LOCATION: ${GITEA__storage__MINIO_LOCATION:-us-east-1}
+      GITEA__storage__MINIO_USE_SSL: ${GITEA__storage__MINIO_USE_SSL:-false}
+      GITEA__storage__MINIO_INSECURE_SKIP_VERIFY: ${GITEA__storage__MINIO_INSECURE_SKIP_VERIFY:-false}
+      GITEA__storage__SERVE_DIRECT: ${GITEA__storage__SERVE_DIRECT:-true}
+      GITEA__storage__MINIO_BUCKET_LOOKUP_TYPE: ${GITEA__storage__MINIO_BUCKET_LOOKUP_TYPE:-auto}
+    ports:
+      - 2222:22
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - gitea-workspace-network
+volumes:
+  gitea-data:
+    name: gitea-data
+networks:
+  gitea-workspace-network:
+    external: true
