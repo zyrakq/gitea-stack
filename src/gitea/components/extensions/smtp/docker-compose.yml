@@ -1,0 +1,10 @@
+services:
+  gitea:
+    environment:
+      GITEA__mailer__ENABLEDE: ${GITEA__mailer__ENABLEDE:-true}
+      GITEA__mailer__PROTOCOL: ${GITEA__mailer__PROTOCOL:-smtp+starttls}
+      GITEA__mailer__SMTP_PORT: ${GITEA__mailer__SMTP_PORT:-587}
+      GITEA__mailer__SMTP_ADDR: ${GITEA__mailer__SMTP_ADDR}
+      GITEA__mailer__FROM: ${GITEA__mailer__FROM}
+      GITEA__mailer__USER: ${GITEA__mailer__USER}
+      GITEA__mailer__PASSWD: ${GITEA__mailer__PASSWD}

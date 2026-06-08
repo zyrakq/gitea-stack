@@ -1,13 +1,16 @@
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: ${LOG_MAX_SIZE:-10m}
+    max-file: ${LOG_MAX_FILE:-3}
+    compress: ${LOG_COMPRESS:-true}
+
 services:
   gitea:
     container_name: gitea
-    image: gitea/gitea:latest
+    image: ${IMAGE:-gitea/gitea:latest}
     restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: 10m
-        max-file: 3
+    logging: *default-logging
     environment:
       USER_UID: ${USER_UID:-1000}
       USER_GID: ${USER_GID:-1000}

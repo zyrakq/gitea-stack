@@ -1,13 +1,15 @@
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: ${LOG_MAX_SIZE:-10m}
+    max-file: ${LOG_MAX_FILE:-3}
+    compress: ${LOG_COMPRESS:-true}
 services:
   gitea:
     container_name: gitea
-    image: gitea/gitea:latest
+    image: ${IMAGE:-gitea/gitea:latest}
     restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: 10m
-        max-file: 3
+    logging: *default-logging
     environment:
       USER_UID: ${USER_UID:-1000}
       USER_GID: ${USER_GID:-1000}
@@ -28,6 +30,13 @@ services:
       GITEA__storage__MINIO_INSECURE_SKIP_VERIFY: ${GITEA__storage__MINIO_INSECURE_SKIP_VERIFY:-false}
       GITEA__storage__SERVE_DIRECT: ${GITEA__storage__SERVE_DIRECT:-true}
       GITEA__storage__MINIO_BUCKET_LOOKUP_TYPE: ${GITEA__storage__MINIO_BUCKET_LOOKUP_TYPE:-auto}
+      GITEA__mailer__ENABLEDE: ${GITEA__mailer__ENABLEDE:-true}
+      GITEA__mailer__PROTOCOL: ${GITEA__mailer__PROTOCOL:-smtp+starttls}
+      GITEA__mailer__SMTP_PORT: ${GITEA__mailer__SMTP_PORT:-587}
+      GITEA__mailer__SMTP_ADDR: ${GITEA__mailer__SMTP_ADDR}
+      GITEA__mailer__FROM: ${GITEA__mailer__FROM}
+      GITEA__mailer__USER: ${GITEA__mailer__USER}
+      GITEA__mailer__PASSWD: ${GITEA__mailer__PASSWD}
     ports:
       - 2222:22
       - 3000:3000

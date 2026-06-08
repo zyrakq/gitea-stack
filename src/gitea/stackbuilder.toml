@@ -3,23 +3,24 @@ environments_path = "./environments"
 extensions_dirs = ["extensions"]
 
 [build]
-extensions = ["s3-storage", "step-ca-trust"]
+skip_base_generation = true
+extensions = ["s3-storage", "smtp", "step-ca-trust"]
 
 [build.combos]
-s3-storage-trust = ["s3-storage", "step-ca-trust"]
+entire = ["s3-storage", "smtp"]
+entire-trust = ["s3-storage", "smtp", "step-ca-trust"]
 
 [build.environments]
-available = ["devcontainer", "forwarding", "letsencrypt", "step-ca"]
-
-[build.environments.devcontainer]
-extensions = ["s3-storage"]
+available = ["forwarding", "letsencrypt", "step-ca"]
 
 [build.environments.forwarding]
-extensions = ["s3-storage"]
+extensions = []
+combos = ["entire"]
 
 [build.environments.letsencrypt]
-extensions = ["s3-storage"]
+extensions = []
+combos = ["entire"]
 
 [build.environments.step-ca]
-extensions = ["step-ca-trust"]
-combos = ["s3-storage-trust"]
+extensions = []
+combos = ["entire-trust"]
