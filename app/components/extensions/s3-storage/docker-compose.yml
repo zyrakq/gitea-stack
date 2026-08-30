@@ -7,6 +7,7 @@ services:
       GITEA__storage__MINIO_SECRET_ACCESS_KEY: ${GITEA__storage__MINIO_SECRET_ACCESS_KEY}
       GITEA__storage__MINIO_IAM_ENDPOINT: ${GITEA__storage__MINIO_IAM_ENDPOINT:-}
       GITEA__storage__MINIO_BUCKET: ${GITEA__storage__MINIO_BUCKET:-gitea}
+      GITEA__storage__MINIO_BASE_PATH: ${GITEA__storage__MINIO_BASE_PATH:-}
       GITEA__storage__MINIO_LOCATION: ${GITEA__storage__MINIO_LOCATION:-us-east-1}
       GITEA__storage__MINIO_USE_SSL: ${GITEA__storage__MINIO_USE_SSL:-false}
       GITEA__storage__MINIO_INSECURE_SKIP_VERIFY: ${GITEA__storage__MINIO_INSECURE_SKIP_VERIFY:-false}

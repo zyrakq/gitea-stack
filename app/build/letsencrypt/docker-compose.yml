@@ -19,12 +19,18 @@ services:
       GITEA__security__INSTALL_LOCK: ${GITEA__security__INSTALL_LOCK}
       GITEA__oauth2__ENABLED: ${GITEA__oauth2__ENABLED}
       ALLOW_ONLY_EXTERNAL_REGISTRATION: ${ALLOW_ONLY_EXTERNAL_REGISTRATION}
+      VIRTUAL_PORT: ${VIRTUAL_PORT:-3000}
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      ROOT_URL: ${ROOT_URL}
       GITEA__storage__STORAGE_TYPE: ${GITEA__storage__STORAGE_TYPE:-minio}
       GITEA__storage__MINIO_ENDPOINT: ${GITEA__storage__MINIO_ENDPOINT:-minio:9000}
       GITEA__storage__MINIO_ACCESS_KEY_ID: ${GITEA__storage__MINIO_ACCESS_KEY_ID}
       GITEA__storage__MINIO_SECRET_ACCESS_KEY: ${GITEA__storage__MINIO_SECRET_ACCESS_KEY}
       GITEA__storage__MINIO_IAM_ENDPOINT: ${GITEA__storage__MINIO_IAM_ENDPOINT:-}
       GITEA__storage__MINIO_BUCKET: ${GITEA__storage__MINIO_BUCKET:-gitea}
+      GITEA__storage__MINIO_BASE_PATH: ${GITEA__storage__MINIO_BASE_PATH:-}
       GITEA__storage__MINIO_LOCATION: ${GITEA__storage__MINIO_LOCATION:-us-east-1}
       GITEA__storage__MINIO_USE_SSL: ${GITEA__storage__MINIO_USE_SSL:-false}
       GITEA__storage__MINIO_INSECURE_SKIP_VERIFY: ${GITEA__storage__MINIO_INSECURE_SKIP_VERIFY:-false}
@@ -39,11 +45,15 @@ services:
       GITEA__mailer__PASSWD: ${GITEA__mailer__PASSWD}
     ports:
       - 2222:22
-      - 3000:3000
     volumes:
       - gitea-data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+    networks:
+      - letsencrypt-network
 volumes:
   gitea-data:
     name: gitea-data
+networks:
+  letsencrypt-network:
+    external: true

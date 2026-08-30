@@ -6,36 +6,36 @@ This project contains a collection of Docker configurations and compose files fo
 
 ### 🔐 SSL Automation
 
-#### [🔒 Let's Encrypt Manager](src/ssl-automation/letsencrypt-manager)
+#### [🔒 Let's Encrypt Manager](modules/ssl-automation/letsencrypt-manager)
 
 Automatic SSL certificate management from Let's Encrypt for production deployments. Provides seamless HTTPS integration for Docker containers using nginx-proxy and acme-companion.
-[Learn more about Let's Encrypt Manager configuration](src/ssl-automation/letsencrypt-manager/README.md).
+[Learn more about Let's Encrypt Manager configuration](modules/ssl-automation/letsencrypt-manager/README.md).
 
-#### [🏠 Step CA Manager](src/ssl-automation/step-ca-manager)
+#### [🏠 Step CA Manager](modules/ssl-automation/step-ca-manager)
 
 Local domain stack with trusted self-signed certificates for virtual network deployments. Includes private CA management and local DNS resolution for development environments.
-[Learn more about Step CA Manager configuration](src/ssl-automation/step-ca-manager/README.md).
+[Learn more about Step CA Manager configuration](modules/ssl-automation/step-ca-manager/README.md).
 
 ### 🔑 Identity Management
 
-#### [🔐 Keycloak](src/identity-management/keycloak)
+#### [🔐 Keycloak](modules/identity-management/keycloak)
 
 Enterprise-grade identity and access management solution. Provides authentication, authorization, and user management for secure application access.
-[Learn more about Keycloak configuration](src/identity-management/keycloak/README.md).
+[Learn more about Keycloak configuration](modules/identity-management/keycloak/README.md).
 
 For Gitea integration, see: [Keycloak Integration](https://docs.gitea.io/en-us/usage/authentication/)
 
-#### [🔐 Kanidm](src/identity-management/kanidm)
+#### [🔐 Kanidm](modules/identity-management/kanidm)
 
 Modern identity and access management server with comprehensive authentication capabilities. Provides secure identity management with modular configuration system and multiple deployment modes.
-[Learn more about Kanidm configuration](src/identity-management/kanidm/README.md).
+[Learn more about Kanidm configuration](modules/identity-management/kanidm/README.md).
 
 ## 🌐 Services
 
-### [🍵 Gitea](src/gitea)
+### [🍵 Gitea](app)
 
 Gitea — a lightweight DevOps platform providing Git hosting, issue tracking, and CI/CD capabilities.
-[Learn more about Gitea configuration](src/gitea/README.md).
+[Learn more about Gitea configuration](app/README.md).
 
 ## 🚀 Getting Started
 
@@ -51,7 +51,7 @@ Each service directory contains:
 ## 🏗️ Project Structure
 
 ```sh
-├── src/
+├── modules/
 │   ├── ssl-automation/      # SSL certificate automation
 │   │   ├── letsencrypt-manager/ # Let's Encrypt SSL certificate management
 │   │   └── step-ca-manager/     # Local CA and trusted certificates
